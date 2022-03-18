@@ -72,7 +72,7 @@ public class NBody {
 
     }
 
-    static Planet readPlanet(String descOfPlanet) {
+    private static Planet readPlanet(String descOfPlanet) {
         String[] paramsOfPlanet = descOfPlanet.trim().split("\\s+");
         // should always to unit test, for we might make the wrong assumptions
         // about the provided data and APIs.
