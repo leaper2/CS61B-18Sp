@@ -28,7 +28,7 @@ public class LinkedListDeque<T> {
     private TNode sentinel;
     private int size;
 
-    private LinkedListDeque() {
+    public LinkedListDeque() {
         // sentinel=new TNode(null, sentinel, sentinel);
         // the empty circular list need the sentinal's pointers point to itself
         sentinel = new TNode(null, null, null);
@@ -38,7 +38,7 @@ public class LinkedListDeque<T> {
         size = 0;
     }
 
-    public LinkedListDeque(LinkedListDeque other) {
+    private LinkedListDeque(LinkedListDeque other) {
         this();
         /*
          * since this method is a constructor, it has to call the primitive
