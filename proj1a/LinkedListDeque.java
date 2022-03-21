@@ -1,17 +1,17 @@
 
-public class LinkedListDeque<TypeVari> {
+public class LinkedListDeque<T> {
     private class TNode {
-        public TypeVari item;
+        public T item;
         public TNode previous;
         public TNode next;
 
-        public TNode(TypeVari x, TNode p, TNode n) {
+        public TNode(T x, TNode p, TNode n) {
             item = x;
             previous = p;
             next = n;
         }
 
-        public TypeVari getRec(int index) {
+        public T getRec(int index) {
             if (index == 0) {
                 return item;
             }
@@ -78,7 +78,7 @@ public class LinkedListDeque<TypeVari> {
         currentThis.next = sentinel;
     }
 
-    public TypeVari getRecursive(int index) {
+    public T getRecursive(int index) {
         if (index < 0) {
             // System.out.println("index must be not less than 0");
             return null;
@@ -89,14 +89,14 @@ public class LinkedListDeque<TypeVari> {
         return sentinel.next.getRec(index);
     }
 
-    public void addFirst(TypeVari item) {
+    public void addFirst(T item) {
         size += 1;
         TNode insertN = new TNode(item, sentinel, sentinel.next);
         sentinel.next = insertN;
         insertN.next.previous = insertN;
     }
 
-    public void addLast(TypeVari item) {
+    public void addLast(T item) {
         size += 1;
         TNode insertN = new TNode(item, sentinel.previous, sentinel);
         insertN.previous.next = insertN;
@@ -124,7 +124,7 @@ public class LinkedListDeque<TypeVari> {
         System.out.print("\n");
     }
 
-    public TypeVari removeFirst() {
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }
@@ -137,7 +137,7 @@ public class LinkedListDeque<TypeVari> {
         return removeN.item;
     }
 
-    public TypeVari removeLast() {
+    public T removeLast() {
         if (size == 0) {
             return null;
         }
@@ -150,7 +150,7 @@ public class LinkedListDeque<TypeVari> {
         return removeN.item;
     }
 
-    public TypeVari get(int index) {
+    public T get(int index) {
         if (index < 0) {
             System.out.println("index must be not less than 0");
             return null;
