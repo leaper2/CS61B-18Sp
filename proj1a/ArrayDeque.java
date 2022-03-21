@@ -162,9 +162,10 @@ public class ArrayDeque<TypeVari> {
     private double calcRatio() {
         double ratio = (double) contentSize / (double) items.length;
         // double ratio = contentSize / items.length ; doesn't work
-        if (ratio < 0.25) {
-            System.out.printf("%d / %d,the ratio is %f\n", contentSize, items.length, ratio);
-        }
+        // if (ratio < 0.25) {
+        // System.out.printf("%d / %d,the ratio is %f\n", contentSize, items.length,
+        // ratio);
+        // }
         return ratio;
     }
 
