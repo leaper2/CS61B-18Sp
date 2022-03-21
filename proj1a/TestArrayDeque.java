@@ -30,7 +30,7 @@ public class TestArrayDeque {
         }
         cpal.printDeque();
         cpal.removeLast();
-        cpal.getCapacity();
+        // cpal.getCapacity();
         cpal.printDeque();
     }
 

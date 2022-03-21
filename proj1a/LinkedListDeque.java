@@ -100,6 +100,7 @@ public class LinkedListDeque<T> {
         size += 1;
         TNode insertN = new TNode(item, sentinel.previous, sentinel);
         insertN.previous.next = insertN;
+        sentinel.previous = insertN;
     }
 
     public boolean isEmpty() {

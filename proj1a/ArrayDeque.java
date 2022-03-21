@@ -33,14 +33,19 @@ public class ArrayDeque<T> {
     }
 
     private int modCapacity(int index) {
-        if (index < 0) {
-            return items.length + (index % items.length);
+        // if (index < 0) {
+        // return items.length + (index % items.length);
+        // }
+        // -8 % 8 ==0 + items.length , it's wrong
+        int afterMod = index % items.length;
+        if (afterMod < 0) {
+            return items.length + afterMod;
         }
+        return afterMod;
         /*
          * deal with negative index
          * a negative index means it wraps back the other end of the array
          */
-        return index % items.length;
     }
 
     private void enlargeCapacity(int capacity) {
@@ -51,6 +56,14 @@ public class ArrayDeque<T> {
              * items.length, not contentSize, the items are not placed regularly
              * and their positions do't align to the right or left side of the array
              */
+            head = modCapacity(head);
+            tail = modCapacity(tail);
+            /*
+             * normalize head and tail, since length of items has change
+             * for example, at the original array of capacity 8, -8 stand for 0,
+             * but, with the new capacity 16, it means 8, so we have to make it
+             * boid down to the actully index value of the original after changing capacity
+             */
             items = newA;
             return;
         }
@@ -58,6 +71,7 @@ public class ArrayDeque<T> {
         int newHead = (capacity - 1) - (contentSize - modCapacity(tail));
         System.arraycopy(items, modCapacity(head + 1), newA, newHead + 1, contentSize - tail);
         head = newHead;
+        tail = modCapacity(tail);
         items = newA;
     }
 
@@ -183,6 +197,7 @@ public class ArrayDeque<T> {
         System.arraycopy(items, modCapacity(head + 1), newA, newHead + 1,
                 contentSize - tail);
         head = newHead;
+        tail = modCapacity(tail);
         items = newA;
     }
 
