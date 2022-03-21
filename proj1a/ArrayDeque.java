@@ -1,12 +1,12 @@
 
-public class ArrayDeque<TypeVari> {
-    private TypeVari[] items;
+public class ArrayDeque<T> {
+    private T[] items;
     private int contentSize;
     private int head;
     private int tail;
 
     public ArrayDeque() {
-        items = (TypeVari[]) new Object[8];
+        items = (T[]) new Object[8];
         contentSize = 0;
         head = 0;
         tail = 1;
@@ -23,7 +23,7 @@ public class ArrayDeque<TypeVari> {
         if (other == null) {
             return;
         }
-        items = (TypeVari[]) new Object[other.items.length];
+        items = (T[]) new Object[other.items.length];
         // shuld use other.items.length here,
         // not other.contentSize, course the items are placed unreguarlarly
         System.arraycopy(other.items, 0, items, 0, other.items.length);
@@ -44,7 +44,7 @@ public class ArrayDeque<TypeVari> {
     }
 
     private void enlargeCapacity(int capacity) {
-        TypeVari[] newA = (TypeVari[]) new Object[capacity];
+        T[] newA = (T[]) new Object[capacity];
         if (modCapacity(head) < modCapacity(tail)) {
             System.arraycopy(items, 0, newA, 0, items.length);
             /*
@@ -65,7 +65,7 @@ public class ArrayDeque<TypeVari> {
         return contentSize;
     }
 
-    public void addFirst(TypeVari item) {
+    public void addFirst(T item) {
         if (contentSize < (items.length - 2)) {
             items[modCapacity(head)] = item;
             head -= 1;
@@ -77,7 +77,7 @@ public class ArrayDeque<TypeVari> {
         }
     }
 
-    public void addLast(TypeVari item) {
+    public void addLast(T item) {
         if (contentSize < (items.length - 2)) {
             items[modCapacity(tail)] = item;
             tail += 1;
@@ -117,9 +117,9 @@ public class ArrayDeque<TypeVari> {
         System.out.println("");
     }
 
-    public TypeVari removeFirst() {
+    public T removeFirst() {
         if (contentSize != 0) {
-            TypeVari dumb = items[modCapacity(head + 1)];
+            T dumb = items[modCapacity(head + 1)];
             // head%length+1 is not equal to (head+1)%length
             head += 1;
             contentSize -= 1;
@@ -133,9 +133,9 @@ public class ArrayDeque<TypeVari> {
         }
     }
 
-    public TypeVari removeLast() {
+    public T removeLast() {
         if (contentSize != 0) {
-            TypeVari dumb = items[modCapacity(tail - 1)];
+            T dumb = items[modCapacity(tail - 1)];
             tail -= 1;
             contentSize -= 1;
             items[modCapacity(tail)] = null;
@@ -148,7 +148,7 @@ public class ArrayDeque<TypeVari> {
         }
     }
 
-    public TypeVari get(int index) {
+    public T get(int index) {
         if (index > contentSize) {
             return null;
         } else if (index < 0) {
@@ -170,7 +170,7 @@ public class ArrayDeque<TypeVari> {
     }
 
     private void shrinkCapacity(int capacity) {
-        TypeVari[] newA = (TypeVari[]) new Object[capacity];
+        T[] newA = (T[]) new Object[capacity];
         if (modCapacity(head) < modCapacity(tail)) {
             System.arraycopy(items, modCapacity(head + 1), newA, 1, contentSize);
             items = newA;
