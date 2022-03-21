@@ -74,14 +74,14 @@ public class NBody {
 
     private static Planet readPlanet(String descOfPlanet) {
         String[] paramsOfPlanet = descOfPlanet.trim().split("\\s+");
-        // should always to unit test, for we might make the wrong assumptions
+        // should always to do unit test, for we might make the wrong assumptions
         // about the provided data and APIs.
         // don't forget to trim
         // for(String s:paramsOfPlanet){
         // System.out.println(s);
         // }
-
-        return new Planet(Double.parseDouble(paramsOfPlanet[0]),
+        return new Planet(
+                Double.parseDouble(paramsOfPlanet[0]),
                 Double.parseDouble(paramsOfPlanet[1]),
                 Double.parseDouble(paramsOfPlanet[2]),
                 Double.parseDouble(paramsOfPlanet[3]),
