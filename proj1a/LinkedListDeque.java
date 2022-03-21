@@ -28,7 +28,7 @@ public class LinkedListDeque<T> {
     private TNode sentinel;
     private int size;
 
-    public LinkedListDeque() {
+    private LinkedListDeque() {
         // sentinel=new TNode(null, sentinel, sentinel);
         // the empty circular list need the sentinal's pointers point to itself
         sentinel = new TNode(null, null, null);
@@ -106,9 +106,8 @@ public class LinkedListDeque<T> {
     public boolean isEmpty() {
         if (size == 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public int size() {

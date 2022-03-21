@@ -19,7 +19,7 @@ public class ArrayDeque<T> {
          */
     }
 
-    public ArrayDeque(ArrayDeque other) {
+    private ArrayDeque(ArrayDeque other) {
         if (other == null) {
             return;
         }
@@ -107,9 +107,9 @@ public class ArrayDeque<T> {
     public boolean isEmpty() {
         if (contentSize == 0) {
             return true;
-        } else {
-            return false;
         }
+        return false;
+
     }
 
     public void printDeque() {
