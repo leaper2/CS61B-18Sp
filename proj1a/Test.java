@@ -2,20 +2,28 @@ public class Test {
     public static void main(String[] args) {
 
         ArrayDeque adl = new ArrayDeque<>();
-        adl.addFirst(0);
-        adl.addFirst(1);
-        adl.removeLast();
-        adl.printDeque();
-        adl.addFirst(3);
+        adl.addLast(0);
+        adl.removeFirst();
+        adl.addLast(2);
+        adl.removeFirst();
         adl.addFirst(4);
-        adl.addFirst(5);
         adl.removeLast();
-        adl.printDeque();
-        adl.addFirst(7);
-        adl.addFirst(8);
-        adl.addFirst(9);
-        adl.addFirst(10);
-        adl.printDeque();
+        adl.addLast(6);
+        adl.addLast(7);
+        adl.get(1);
+        adl.get(0);
+        adl.addLast(10);
+        adl.addLast(11);
+        adl.removeLast();
+        adl.removeLast();
+        adl.addLast(14);
+        adl.get(1);
+        adl.removeLast();
+        adl.addLast(17);
+        adl.addLast(18);
+        adl.addLast(19);
+        adl.addLast(20);
+        adl.addLast(21);
 
     }
 }

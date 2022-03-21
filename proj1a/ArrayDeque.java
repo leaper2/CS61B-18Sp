@@ -69,7 +69,7 @@ public class ArrayDeque<T> {
         }
         System.arraycopy(items, 0, newA, 0, modCapacity(tail));
         int newHead = (capacity - 1) - (contentSize - modCapacity(tail));
-        System.arraycopy(items, modCapacity(head + 1), newA, newHead + 1, contentSize - tail);
+        System.arraycopy(items, modCapacity(head + 1), newA, newHead + 1, contentSize - modCapacity(tail));
         head = newHead;
         tail = modCapacity(tail);
         items = newA;
