@@ -82,8 +82,8 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         if (contentSize < (items.length - 2)) {
             items[modCapacity(head)] = item;
-            head -= 1;
-            contentSize += 1;
+            head--;
+            contentSize++;
             return;
         } else {
             enlargeCapacity(items.length * 2);
@@ -94,8 +94,8 @@ public class ArrayDeque<T> {
     public void addLast(T item) {
         if (contentSize < (items.length - 2)) {
             items[modCapacity(tail)] = item;
-            tail += 1;
-            contentSize += 1;
+            tail++;
+            contentSize++;
             return;
 
         } else {
@@ -105,10 +105,7 @@ public class ArrayDeque<T> {
     }
 
     public boolean isEmpty() {
-        if (contentSize == 0) {
-            return true;
-        }
-        return false;
+        return contentSize == 0;
 
     }
 
@@ -135,8 +132,8 @@ public class ArrayDeque<T> {
         if (contentSize != 0) {
             T dumb = items[modCapacity(head + 1)];
             // head%length+1 is not equal to (head+1)%length
-            head += 1;
-            contentSize -= 1;
+            head++;
+            contentSize--;
             items[modCapacity(head)] = null;
             if (calcRatio() < 0.25 && items.length != 8) {
                 shrinkCapacity(items.length / 2);
@@ -150,8 +147,8 @@ public class ArrayDeque<T> {
     public T removeLast() {
         if (contentSize != 0) {
             T dumb = items[modCapacity(tail - 1)];
-            tail -= 1;
-            contentSize -= 1;
+            tail--;
+            contentSize--;
             items[modCapacity(tail)] = null;
             if (calcRatio() < 0.25 && items.length != 8) {
                 shrinkCapacity(items.length / 2);

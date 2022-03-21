@@ -90,24 +90,22 @@ public class LinkedListDeque<T> {
     }
 
     public void addFirst(T item) {
-        size += 1;
+        size++;
         TNode insertN = new TNode(item, sentinel, sentinel.next);
         sentinel.next = insertN;
         insertN.next.previous = insertN;
     }
 
     public void addLast(T item) {
-        size += 1;
+        size++;
         TNode insertN = new TNode(item, sentinel.previous, sentinel);
         insertN.previous.next = insertN;
         sentinel.previous = insertN;
     }
 
     public boolean isEmpty() {
-        if (size == 0) {
-            return true;
-        }
-        return false;
+
+        return size == 0;
     }
 
     public int size() {
@@ -128,7 +126,7 @@ public class LinkedListDeque<T> {
         if (size == 0) {
             return null;
         }
-        size -= 1;
+        size--;
         TNode removeN = sentinel.next;
         sentinel.next = removeN.next;
         removeN.next.previous = sentinel;
@@ -141,7 +139,7 @@ public class LinkedListDeque<T> {
         if (size == 0) {
             return null;
         }
-        size -= 1;
+        size--;
         TNode removeN = sentinel.previous;
         sentinel.previous = removeN.previous;
         removeN.previous.next = sentinel;
