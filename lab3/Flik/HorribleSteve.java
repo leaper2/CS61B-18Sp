@@ -1,5 +1,9 @@
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 public class HorribleSteve {
-    public static void main(String [] args) {
+    public static void main(String[] args) {
         int i = 0;
         for (int j = 0; i < 500; ++i, ++j) {
             if (!Flik.isSameNumber(i, j)) {
@@ -7,5 +11,13 @@ public class HorribleSteve {
             }
         }
         System.out.println("i is " + i);
+    }
+
+    @Test
+    public void testTrue() {
+        for (int i = 0; i < 500; i++) {
+
+            assertTrue(i + " not equal", Flik.isSameNumber(i, i));
+        }
     }
 }

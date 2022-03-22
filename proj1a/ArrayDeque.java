@@ -12,9 +12,10 @@ public class ArrayDeque<T> {
         tail = 1;
         /*
          * head and tail point at the unpopulated positions
-         * head increase with counter-clockwise, tail increase with clockwise
-         * invariant 1: head and tail must never collide.
-         * invariant 2: contentSize<(items.length-2)
+         * Adding elements at the head increase head counter-clockwise,
+         * Adding elements at the end increase tail clockwise
+         * Invariant 1: head and tail must never collide.
+         * Invariant 2: contentSize<(items.length-2)
          * 
          */
     }
@@ -32,19 +33,23 @@ public class ArrayDeque<T> {
         tail = other.tail;
     }
 
-    private int modCapacity(int index) {
+    private int modCapacity(int key) {
         // if (index < 0) {
         // return items.length + (index % items.length);
         // }
         // -8 % 8 ==0 + items.length , it's wrong
-        int afterMod = index % items.length;
-        if (afterMod < 0) {
-            return items.length + afterMod;
+        int index = key % items.length;
+        if (index < 0) {
+            return items.length + index;
         }
-        return afterMod;
+        return index;
         /*
-         * deal with negative index
-         * a negative index means it wraps back the other end of the array
+         * Deal with negative index
+         * A negative index means it wraps back the other end of the array
+         * The mod operation is a hash-mapping function actually. The values of
+         * the head and the tail are used as keys, to map into the index of the
+         * array.
+         * 
          */
     }
 
@@ -112,17 +117,17 @@ public class ArrayDeque<T> {
     public void printDeque() {
         if (modCapacity(head) < modCapacity(tail)) {
             for (int i = modCapacity(head) + 1; i < modCapacity(tail); i++) {
-                System.out.print(items[i]);
-                System.out.print(" ");
+                System.out.print(items[i] + " ");
+                // System.out.print(" ");
             }
         } else {
             for (int i = modCapacity(head) + 1; i < items.length; i++) {
-                System.out.print(items[i]);
-                System.out.print(" ");
+                System.out.print(items[i] + " ");
+                // System.out.print(" ");
             }
             for (int i = 0; i < modCapacity(tail); i++) {
-                System.out.print(items[i]);
-                System.out.print(" ");
+                System.out.print(items[i] + " ");
+                // System.out.print(" ");
             }
         }
         System.out.println("");
@@ -139,9 +144,8 @@ public class ArrayDeque<T> {
                 shrinkCapacity(items.length / 2);
             }
             return dumb;
-        } else {
-            return null;
         }
+        return null;
     }
 
     public T removeLast() {
