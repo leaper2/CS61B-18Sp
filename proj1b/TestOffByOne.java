@@ -19,6 +19,7 @@ public class TestOffByOne {
         assertTrue("Y" + " is equal to " + "Z", offByOne.equalChars('Y', 'Z'));
         assertFalse(d + " is equal to " + b, offByOne.equalChars(d, b));
         assertFalse(d + " is equal to " + d, offByOne.equalChars(d, d));
+        assertFalse(d + " is equal to " + "E", offByOne.equalChars(d, 'E'));
     }
 
     // Your tests go here.
