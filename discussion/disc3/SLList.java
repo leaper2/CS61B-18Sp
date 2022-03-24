@@ -1,9 +1,11 @@
-public class SLList {
+import javax.security.auth.login.CredentialException;
+
+public class SLList<T> {
     private class IntNode {
-        public int item;
+        public T item;
         public IntNode next;
 
-        public IntNode(int item, IntNode next) {
+        public IntNode(T item, IntNode next) {
             this.item = item;
             this.next = next;
         }
@@ -12,11 +14,46 @@ public class SLList {
 
     private IntNode first;
 
-    public void addFirst(int x) {
+    public SLList() {
+        first = null;
+    }
+
+    public SLList(T x) {
+        first = new IntNode(x, null);
+    }
+
+    public void addFirst(T x) {
         first = new IntNode(x, first);
     }
 
-    public void insert(int item, int position) {
+    public T getFirst() {
+        return first.item;
+    }
+
+    public void addLast(T x) {
+        if (this.first == null) {
+            first = new IntNode(x, null);
+            return;
+        }
+        IntNode currentNode = first;
+        while (currentNode.next != null) {
+            currentNode = currentNode.next;
+        }
+        currentNode.next = new IntNode(x, null);
+    }
+
+    private int size(IntNode current) {
+        if (current.next == null) {
+            return 1;
+        }
+        return 1 + size(current.next);
+    }
+
+    public int size() {
+        return size(first);
+    }
+
+    public void insert(T item, int position) {
         IntNode current = first;
         IntNode previous = null;
         if (position == 0) {
@@ -56,4 +93,44 @@ public class SLList {
         }
         first = frontOfReversed;
     }
+
+    public T removeLast() {
+        IntNode current = first, previous = null;
+        while (current.next != null) {
+            previous = current;
+            current = current.next;
+        }
+        previous.next = null;
+        return current.item;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == ((SLList) obj)) {
+            return true;
+        }
+        if (this.size() != ((SLList) obj).size()) {
+            return false;
+        }
+        IntNode currentThis = first, currentAgainst = ((SLList) obj).first;
+        boolean result = true;
+        while (currentThis.next != null) {
+            result = currentThis.item == currentAgainst.item;
+            if (!result) {
+                break;
+            }
+            currentThis = currentThis.next;
+            currentAgainst = currentAgainst.next;
+        }
+        return result;
+    }
+
+    public void print() {
+        IntNode current = first;
+        while (current != null) {
+            System.out.print(current.item + " ");
+        }
+        System.out.println("");
+    }
+
 }

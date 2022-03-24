@@ -1,7 +1,5 @@
 import static org.junit.Assert.assertArrayEquals;
 
-import javax.swing.ImageIcon;
-
 import org.junit.Test;
 
 public class PrimitiveArray {
