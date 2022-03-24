@@ -27,7 +27,7 @@ public class TestArrayDequeGold {
             if (random > 0.5) {
                 sad.removeFirst();
                 ads.removeFirst();
-                operationList.add("removeFirst\n");
+                operationList.add("removeFirst()\n");
             }
 
         }
