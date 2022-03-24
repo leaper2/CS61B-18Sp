@@ -24,12 +24,11 @@ public class TestArrayDequeGold {
 
         for (int i = 0; i < 100; i++) {
             double random = StdRandom.uniform();
-            if (random > 0.5) {
-                sad.removeFirst();
-                ads.removeFirst();
-                operationList.add("removeFirst()\n");
+            if (random < 0.5) {
+                sad.removeLast();
+                ads.removeLast();
+                operationList.add("removeLast()\n");
             }
-
         }
 
         for (int i = 0; i < ads.size(); i++) {
