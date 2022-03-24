@@ -33,7 +33,7 @@ public class TestArrayDequeGold {
         }
 
         for (int i = 0; i < ads.size(); i++) {
-            assertEquals(operationList.toString(), ads.get(i), sad.get(i));
+            assertEquals(String.join("", operationList), ads.get(i), sad.get(i));
         }
     }
 }
