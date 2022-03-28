@@ -71,6 +71,9 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T> {
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
         // return rb[first];
+        if (isEmpty()) {
+            throw new RuntimeException("ring buffer underflow");
+        }
         return rb[first % capacity];
     }
 
