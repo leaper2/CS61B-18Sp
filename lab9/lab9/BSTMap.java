@@ -1,7 +1,11 @@
 package lab9;
 
+import java.nio.file.NotDirectoryException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import javax.security.auth.login.CredentialException;
 
 /**
  * Implementation of interface Map61B with BST as core data structure.
@@ -144,7 +148,18 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keyset = new HashSet<>();
+        traverse(root, keyset);
+        return keyset;
+    }
+
+    private void traverse(Node p, Set<K> keyset) {
+        if (p == null) {
+            return;
+        }
+        traverse(p.left, keyset);
+        traverse(p.right, keyset);
+        keyset.add(p.key);
     }
 
     /**
@@ -154,7 +169,88 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      */
     @Override
     public V remove(K key) {
-        throw new UnsupportedOperationException();
+        Node removed = getNode(key, root);
+        Node previousRemoved = getPrevious(key, root, null);
+        if (removed == null) {
+            return null;
+        }
+        if (removed.left != null && removed.right != null) {
+            Node choosed = removed.right;
+            Node choosedPrevious = null;
+            while (choosed.left != null) {
+                choosedPrevious = choosed;
+                choosed = choosed.left;
+            }
+            choosedPrevious.left = null;
+            choosed.left = removed.left;
+            choosed.right = removed.right;
+            if (previousRemoved != null) {
+                if (previousRemoved.left == removed) {
+                    previousRemoved.left = choosed;
+                } else {
+                    previousRemoved.right = choosed;
+                }
+            } else {
+                root = choosed;
+            }
+        }
+        if (removed.left != null) {
+            if (previousRemoved != null) {
+                if (previousRemoved.left == removed) {
+                    previousRemoved.left = removed.left;
+                } else {
+                    previousRemoved.right = removed.left;
+                }
+            } else {
+                root = removed.left;
+            }
+        }
+        if (removed.right != null) {
+            if (previousRemoved != null) {
+                if (previousRemoved.left == removed) {
+                    previousRemoved.left = removed.right;
+                } else {
+                    previousRemoved.right = removed.right;
+                }
+            } else {
+                root = removed.right;
+            }
+        }
+
+        if (previousRemoved.left == removed) {
+            previousRemoved.left = null;
+        } else {
+            previousRemoved.right = null;
+        }
+        return removed.value;
+    }
+
+    private Node getPrevious(K key, Node p, Node previous) {
+        // if (key.compareTo(root.key)==0){
+        // return null;
+        // }
+        if (key.compareTo(p.key) > 0) {
+            return getPrevious(key, p.right, p);
+        }
+        if (key.compareTo(p.key) < 0) {
+            return getPrevious(key, p.left, p);
+        }
+        return previous;
+    }
+
+    private Node getNode(K key, Node p) {
+        if (p == null) {
+            return null;
+        }
+
+        if (key.compareTo(p.key) > 0) {
+            return getNode(key, p.right);
+        }
+        if (key.compareTo(p.key) < 0) {
+            return getNode(key, p.left);
+        }
+        // the remained case is that key==p.key, so return the value directly
+        return p;
     }
 
     /**

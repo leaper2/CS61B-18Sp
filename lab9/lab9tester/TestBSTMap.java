@@ -2,6 +2,9 @@ package lab9tester;
 
 import static org.junit.Assert.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 import lab9.BSTMap;
 
@@ -69,12 +72,17 @@ public class TestBSTMap {
     public void sanitySizeTest() {
         BSTMap<String, Integer> b = new BSTMap<String, Integer>();
         assertEquals(0, b.size());
+        Set<String> keyset = new HashSet<>();
         b.put("hi", 1);
+        keyset.add("hi");
         assertEquals(1, b.size());
         for (int i = 0; i < 455; i++) {
             b.put("hi" + i, 1);
+            keyset.add("hi" + i);
         }
         assertEquals(456, b.size());
+        assertEquals(keyset, b.keySet());
+
     }
 
     // assumes get/containskey work
