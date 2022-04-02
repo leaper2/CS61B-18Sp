@@ -82,7 +82,14 @@ public class TestBSTMap {
         }
         assertEquals(456, b.size());
         assertEquals(keyset, b.keySet());
-
+        keyset.remove("hi2");
+        b.remove("hi2");
+        Set<String> bkset = b.keySet();
+        assertEquals(keyset, bkset);
+        keyset.remove("hi");
+        b.remove("hi");
+        bkset = b.keySet();
+        assertEquals(keyset, bkset);
     }
 
     // assumes get/containskey work
@@ -92,6 +99,8 @@ public class TestBSTMap {
         b.put("hi", 1);
         assertTrue(b.containsKey("hi"));
         assertTrue(b.get("hi") != null);
+        b.remove("hi");
+        assertTrue(b.get("hi") == null);
     }
 
     public static void main(String[] args) {
