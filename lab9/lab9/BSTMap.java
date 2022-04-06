@@ -1,11 +1,8 @@
 package lab9;
 
-import java.nio.file.NotDirectoryException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-
-import javax.security.auth.login.CredentialException;
 
 /**
  * Implementation of interface Map61B with BST as core data structure.
@@ -181,81 +178,83 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      * returns VALUE removed,
      * null on failed removal.
      */
-    @Override
-    public V remove(K key) {
-        Node removed = getNode(key, root);
-        Node previousRemoved = getPrevious(key, root, null);
-        if (removed == null) {
-            return null;
-        }
-        V removedValue = removed.value;
-        if (removed.left != null && removed.right != null) {
-            // Node choosed = removed.right;
-            // Node choosedPrevious = null;
-            // while (choosed.left != null || choosed.right != null) {
-            // choosedPrevious = choosed;
-            // choosed = choosed.left;
-            // }
-            Node choosed = findLeaf(removed.right.left);
-            Node choosedPrevious = getPrevious(choosed.key, root, null);
-            // choosedPrevious.left = null;
-            if (choosedPrevious.left == choosed) {
-                choosedPrevious.left = null;
-            } else {
-                choosedPrevious.right = null;
-            }
-
-            // V removedValue=removed.value;
-            removed.value = choosed.value;
-            // don't forget swap the key
-            removed.key = choosed.key;
-            size--;
-            return removedValue;
-        }
-        if (removed.left != null && removed.right == null) {
-            if (previousRemoved != null) {
-                if (previousRemoved.left == removed) {
-                    previousRemoved.left = removed.left;
-                } else {
-                    previousRemoved.right = removed.left;
-                }
-            } else {
-                root = removed.left;
-            }
-            // removed.value = removed.left.value;
-            // removed.key = removed.left.key;
-            // removed.left = null;
-            size--;
-            return removedValue;
-        }
-        if (removed.right != null && removed.left == null) {
-            if (previousRemoved != null) {
-                if (previousRemoved.left == removed) {
-                    previousRemoved.left = removed.right;
-                } else {
-                    previousRemoved.right = removed.right;
-                }
-            } else {
-                root = removed.right;
-            }
-            size--;
-            return removedValue;
-        }
-        // If the removed node is a leaf node, just unlink the node
-        if (previousRemoved != null) {
-            if (previousRemoved.left == removed) {
-                previousRemoved.left = null;
-            } else {
-                previousRemoved.right = null;
-            }
-        } else {
-            // If the previous node is null, then the node is the root node
-            root = null;
-        }
-        size--;
-        return removedValue;
-    }
     // @Override
+    // // iterative style is not only complex, but also error-prone
+    // public V remove(K key) {
+    // Node removed = getNode(key, root);
+    // Node previousRemoved = getPrevious(key, root, null);
+    // if (removed == null) {
+    // return null;
+    // }
+    // V removedValue = removed.value;
+    // if (removed.left != null && removed.right != null) {
+    // // Node choosed = removed.right;
+    // // Node choosedPrevious = null;
+    // // while (choosed.left != null || choosed.right != null) {
+    // // choosedPrevious = choosed;
+    // // choosed = choosed.left;
+    // // }
+    // Node choosed = findLeaf(removed.right.left);
+    // Node choosedPrevious = getPrevious(choosed.key, root, null);
+    // // choosedPrevious.left = null;
+    // if (choosedPrevious.left == choosed) {
+    // choosedPrevious.left = null;
+    // } else {
+    // choosedPrevious.right = null;
+    // }
+
+    // // V removedValue=removed.value;
+    // removed.value = choosed.value;
+    // // don't forget swap the key
+    // removed.key = choosed.key;
+    // size--;
+    // return removedValue;
+    // }
+    // if (removed.left != null && removed.right == null) {
+    // if (previousRemoved != null) {
+    // if (previousRemoved.left == removed) {
+    // previousRemoved.left = removed.left;
+    // } else {
+    // previousRemoved.right = removed.left;
+    // }
+    // } else {
+    // root = removed.left;
+    // }
+    // // removed.value = removed.left.value;
+    // // removed.key = removed.left.key;
+    // // removed.left = null;
+    // size--;
+    // return removedValue;
+    // }
+    // if (removed.right != null && removed.left == null) {
+    // if (previousRemoved != null) {
+    // if (previousRemoved.left == removed) {
+    // previousRemoved.left = removed.right;
+    // } else {
+    // previousRemoved.right = removed.right;
+    // }
+    // } else {
+    // root = removed.right;
+    // }
+    // size--;
+    // return removedValue;
+    // }
+    // // If the removed node is a leaf node, just unlink the node
+    // if (previousRemoved != null) {
+    // if (previousRemoved.left == removed) {
+    // previousRemoved.left = null;
+    // } else {
+    // previousRemoved.right = null;
+    // }
+    // } else {
+    // // If the previous node is null, then the node is the root node
+    // root = null;
+    // }
+    // size--;
+    // return removedValue;
+    // }
+
+    // // @Override
     // public V remove(K key) {
     // Node removed = getNode(key, root);
     // Node previousRemoved = getPrevious(key, root, null);
@@ -324,6 +323,58 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     // size--;
     // return removed.value;
     // }
+
+    @Override
+    public V remove(K key) {
+        V value = get(key);
+        if (value == null) {
+            return null;
+        }
+        root = removeHelper(key, root);
+        size--;
+        return value;
+    }
+
+    /*
+     * the binary search tree is the resulting object of the remove operation
+     */
+    private Node removeHelper(K removeK, Node subtree) {
+        if (subtree == null) {
+            return null;
+        }
+        if (removeK.compareTo(subtree.key) > 0) {
+            subtree.right = removeHelper(removeK, subtree.right);
+            return subtree;
+        }
+        if (removeK.compareTo(subtree.key) < 0) {
+            subtree.left = removeHelper(removeK, subtree.left);
+            return subtree;
+        }
+        {
+            // current node is the node we want to remove
+            if (subtree.right != null) {
+                subtree.key = subtree.right.key;
+                subtree.value = subtree.right.value;
+                subtree.right = removeHelper(subtree.key, subtree.right);
+                return subtree;
+            }
+            if (subtree.left != null && subtree.right == null) {
+                subtree.key = subtree.left.key;
+                subtree.value = subtree.left.value;
+                subtree.left = removeHelper(subtree.key, subtree.left);
+                return subtree;
+            }
+            // if (subtree.right != null && subtree.left == null) {
+            // subtree.key = subtree.right.key;
+            // subtree.value = subtree.right.value;
+            // subtree.right = removeHelper(subtree.key, subtree.right);
+            // return subtree;
+            // }
+            // otherwise, the tree may has a right child, or is a leaf
+
+            return null;
+        }
+    }
 
     private Node getPrevious(K key, Node p, Node previous) {
         // if (key.compareTo(root.key)==0){
