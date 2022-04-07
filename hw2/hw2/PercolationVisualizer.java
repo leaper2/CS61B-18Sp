@@ -16,13 +16,14 @@
  *
  ******************************************************************************/
 package hw2;
+
 import java.awt.Font;
 
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdDraw;
 
 public class PercolationVisualizer {
-/*
+
     // delay in miliseconds (controls animation speed)
     private static final int DELAY = 100;
 
@@ -31,7 +32,7 @@ public class PercolationVisualizer {
         StdDraw.clear();
         StdDraw.setPenColor(StdDraw.BLACK);
         StdDraw.setXscale(-.05 * N, 1.05 * N);
-        StdDraw.setYscale(-.05 * N, 1.05 * N);   // leave a border to write text
+        StdDraw.setYscale(-.05 * N, 1.05 * N); // leave a border to write text
         StdDraw.filledSquare(N / 2.0, N / 2.0, N / 2.0);
 
         // draw N-by-N grid
@@ -81,7 +82,8 @@ public class PercolationVisualizer {
     }
 
     public static void main(String[] args) {
-        String filename = args[0];
+        // String filename = args[0];
+        String filename = "inputFiles/input20.txt";
         simulateFromFile(filename);
-    }*/
+    }
 }
