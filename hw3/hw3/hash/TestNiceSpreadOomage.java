@@ -1,6 +1,8 @@
 package hw3.hash;
 
 import org.junit.Test;
+
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -29,8 +31,10 @@ public class TestNiceSpreadOomage {
 
     }
 
-    /** After you've written haveNiceHashCodeSpread,
-     * run this and it should pass.*/
+    /**
+     * After you've written haveNiceHashCodeSpread,
+     * run this and it should pass.
+     */
     @Test
     public void testRandomOomagesHashCodeSpread() {
         List<Oomage> oomages = new ArrayList<>();
