@@ -119,6 +119,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             swap(index, parentIndex(index));
             // don't forget to update the swapped index
             index = parentIndex(index);
+            parent = getNode(parentIndex(index));
         }
         return;
     }
