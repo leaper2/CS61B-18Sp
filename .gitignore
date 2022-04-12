@@ -5,6 +5,7 @@
 !**.json
 !.expelimicate
 !.gitignore
+!*.md
 .class
 *.log
 *.ctxt
@@ -49,3 +50,4 @@ $RECYCLE.BIN/
 *.msp
 *.lnk
 .vscode
+node_modules
