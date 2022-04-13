@@ -11,6 +11,7 @@ if(condition 1) then(true)
 else (false)
     :else case statements;
 endif
+    :statements;
     :return;
 stop
 
@@ -27,6 +28,7 @@ else (false)
     :;
 endif
     :else case statements;
+    :statements;
     :return;
 stop
 
@@ -48,6 +50,7 @@ else (false)
     :;
 endif
     :else case statements;
+    :statements;
     :return;
 stop
 

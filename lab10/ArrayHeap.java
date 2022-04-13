@@ -121,6 +121,7 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
             index = parentIndex(index);
             parent = getNode(parentIndex(index));
         }
+
         return;
     }
 
@@ -147,21 +148,41 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         double currPriority = contents[index].myPriority;
         double leftPriority = left.myPriority;
         double rightPriorty = right.myPriority;
-        if (currPriority > leftPriority && currPriority > rightPriorty) {
-            if (leftPriority < rightPriorty) {
+        // if (currPriority > leftPriority && currPriority > rightPriorty) {
+        // if (leftPriority < rightPriorty) {
+        // swap(index, leftIndex(index));
+        // sink(leftIndex(index));
+        // } else {
+        // swap(index, rightIndex(index));
+        // sink(rightIndex(index));
+        // }
+        // // allow duplicated priorities
+        // } else if (currPriority > leftPriority && currPriority <= rightPriorty) {
+        // swap(index, leftIndex(index));
+        // sink(leftIndex(index));
+        // } else if (currPriority > rightPriorty && currPriority <= leftPriority) {
+        // swap(index, rightIndex(index));
+        // sink(rightIndex(index));
+        // }
+        if (currPriority > leftPriority) {
+            if (currPriority > rightPriorty) {
+                if (leftPriority < rightPriorty) {
+                    swap(index, leftIndex(index));
+                    sink(leftIndex(index));
+                } else { // leftPriority<=rightPriority
+                    swap(index, rightIndex(index));
+                    sink(rightIndex(index));
+                }
+            } else { // currPrioriry<=rightPriority
                 swap(index, leftIndex(index));
                 sink(leftIndex(index));
-            } else {
+            }
+        } else { // currPriority<=leftPriority
+            if (currPriority > rightPriorty) {
                 swap(index, rightIndex(index));
                 sink(rightIndex(index));
+            } else { // currPriority<=rightPriority
             }
-            // allow duplicated priorities
-        } else if (currPriority > leftPriority && currPriority <= rightPriorty) {
-            swap(index, leftIndex(index));
-            sink(leftIndex(index));
-        } else if (currPriority > rightPriorty && currPriority <= leftPriority) {
-            swap(index, rightIndex(index));
-            sink(rightIndex(index));
         }
         return;
     }
@@ -448,11 +469,11 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         pq.insert("b", 2);
         pq.insert("c", 3);
         pq.insert("d", 4);
-        System.out.println("PQ before remove:");
-        System.out.println(pq);
+        // System.out.println("PQ before remove:");
+        // System.out.println(pq);
         String removed = pq.removeMin();
-        System.out.println("PQ after remove:");
-        System.out.println(pq);
+        // System.out.println("PQ after remove:");
+        // System.out.println(pq);
         assertEquals("a", removed);
         assertEquals(9, pq.size());
         assertEquals("b", pq.contents[1].myItem);
@@ -464,6 +485,17 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         assertEquals("g", pq.contents[7].myItem);
         assertEquals("i", pq.contents[8].myItem);
         assertEquals("d", pq.contents[9].myItem);
+        System.out.println("PQ before change priority:");
+        System.out.println(pq);
+        pq.changePriority("e", 1);
+        System.out.println("PQ after change priority:");
+        System.out.println(pq);
+        pq.changePriority("e", 15);
+        System.out.println("PQ after change priority:");
+        System.out.println(pq);
+        pq.changePriority("d", 0);
+        System.out.println("PQ after change priority:");
+        System.out.println(pq);
     }
 
     @Test
