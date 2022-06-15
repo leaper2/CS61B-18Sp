@@ -1,7 +1,5 @@
 import org.junit.Test;
 
-import edu.princeton.cs.algs4.EulerianCycle;
-
 import static org.junit.Assert.*;
 
 /**
@@ -116,12 +114,13 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         validateSinkSwimArg(index);
         Node parent = getNode(parentIndex(index));
         while (parent.myPriority > contents[index].myPriority) {
+            // This written style is infeasible
+            // Node parent = getNode(parentIndex(index));
             swap(index, parentIndex(index));
             // don't forget to update the swapped index
             index = parentIndex(index);
             parent = getNode(parentIndex(index));
         }
-
         return;
     }
 
@@ -267,6 +266,10 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         for (int i = 1; i <= size; i++) {
             current = getNode(i);
             if (current.item().equals(item)) {
+                /*
+                 * The branching here is superfluous, for the function sink and swim both have
+                 * their owned conditinal branch excution depends on the value of the priority
+                 */
                 if (current.myPriority < priority) {
                     current.myPriority = priority;
                     sink(i);
@@ -494,6 +497,9 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
         System.out.println("PQ after change priority:");
         System.out.println(pq);
         pq.changePriority("d", 0);
+        System.out.println("PQ after change priority:");
+        System.out.println(pq);
+        pq.changePriority("d", 4);
         System.out.println("PQ after change priority:");
         System.out.println(pq);
     }
